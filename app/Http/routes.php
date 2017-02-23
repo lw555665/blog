@@ -11,6 +11,28 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+//首页
+Route::resource('/','HomeController');
+
+Route::get('/list/{id}','HomeController@show');
+//注册
+Route::resource('/register','RegisterController');
+
+//登录
+Route::resource('/login','LoginController');
+
+Route::get('/logout','LoginController@logout');
+
+
+
+//个人中心验证
+Route::group(['middleware'=>'UserMiddleware'],function(){
+
+    //个人中心首页
+
+    Route::resource('/user','UserController');
+    //文章curd
+    Route::resource('/curd','CurdController');
 });
